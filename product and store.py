@@ -8,13 +8,15 @@ class Store:
         self.products = []
 
     def add_product(self, name, quantity):
-        product = Product(name, quantity)
-        self.products.append(product)
+        obj = Product(name, quantity)
+        if obj.name in self.__products:
+            self.__products[obj.name].quantity += obj.quantity
+        else:
+            self.__products[obj.name] = obj
 
     def show_products(self):
-        print("รายการสินค้าที่มีในร้าน:")
-        for product in self.products:
-            print(f"- {product.name}: {product.quantity} ชิ้น")
+        for name ,obj in self.__products.items():
+            print(f"{obj.name}  :  {obj.quantity}")
 
 my_store = Store()
 my_store.add_product("ยาสีฟัน", 90)
